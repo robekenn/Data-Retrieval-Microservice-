@@ -1,13 +1,17 @@
 {
     "users": [
         {
-            "id": "user_001"
-        },
-        {
             "id": "user_002"
         },
         {
             "id": "user_003"
+        },
+        {
+            "id": "user_004",
+            "name": "Alice Johnson-Smith",
+            "email": "alice.smith@example.com",
+            "age": 29,
+            "city": "Portland"
         }
     ]
 }

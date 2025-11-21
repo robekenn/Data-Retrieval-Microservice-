@@ -1,4 +1,6 @@
 import DeleteUser
+import PushUser
+import RetrieveUser
 import zmq
 import json
 
@@ -28,17 +30,21 @@ while True:
     if message[0] == 1:
           # retrieve data
           print("retrieve Data")
-          #retMessage = ret_data(message[1]) #sends the UserID
-          #socket.send(retMessage)
+          retMessage = RetrieveUser.retrieve_user(message[1], data)
+          retMessage_json = json.dumps(retMessage).encode('utf-8')
+          socket.send(retMessage_json)
     elif message[0] == 2:
-          #Push Data
+          # Push Data
           print("Push Data")
-          #retMessage = push_data(message[1], message[2]) #sends the userID and an list of the rest of the users data.
-          #socket.send(retMessage)
+          retMessage = PushUser.push_user(message[1], message[2], data)
+          socket.send_string(retMessage)
+          # Save updated data to JSON file
+          JDump(data)
     elif message[0] == 3:
-          #Delete User
+          # Delete User
           print("delete User")
           retMessage = DeleteUser.delete_user(message[1], data)
           socket.send_string(retMessage)
-          print(data)
+          # Save updated data to JSON file
+          JDump(data)
 
